@@ -1,16 +1,26 @@
 <!DOCTYPE html>
-<html>
-<body style="text-align: center">
-<h1>JER/KEY</h1>
-<h2>JERKCITY INSPIRED PASSPHRASE GENERATOR</h2>
-<p>TRY ONE OF THESE ON FOR SIZE</p>
-<p style="
-font-size: 200%;
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>JERKCITY PASSPHRASE GENERATOR</title>
+</head>
+<body style="
+text-align: center;
+font-family: 'Comic Sans MS', 'Chalkboard SE', 'Comic Neue';
 font-weight: bold;
-white-space: nowrap
 ">
-<code id="jerkey" ></code>
-</p>
+<h1>JER/KEY</h1>
+<h2>JERKCITY PASSPHRASE GENERATOR</h2>
+<p>TRY MEDIUM SIZE</p>
+<p style="
+font-size: 150%;
+white-space: nowrap
+" id="jerkeypw"></p>
+<p>OR SUPER-SIZE IT</p>
+<p style="
+font-size: 150%;
+white-space: nowrap
+" id="jerkeypp"></p>
 
 <script type="cocks" id="obscenity">
 ASS
@@ -290,14 +300,21 @@ function shuffle(array) {
     return array;
 }
 
-var obscenity  = document.getElementById("obscenity" ).innerHTML.match(/\S+/g);
-var wordpool   = document.getElementById("wordpool"  ).innerHTML.match(/\S+/g);
-var suffixlist = document.getElementById("suffixlist").innerHTML.match(/\S+/g);
-var why        = document.getElementById("why"       ).innerHTML.match(/\S+/g);
-shuffle(obscenity);
-shuffle(wordpool);
-shuffle(suffixlist);
-shuffle(why);
+var obscenity;
+var wordpool;
+var suffixlist;
+var why;
+
+function initwordpool(){
+	obscenity  = document.getElementById("obscenity" ).innerHTML.match(/\S+/g);
+	wordpool   = document.getElementById("wordpool"  ).innerHTML.match(/\S+/g);
+	suffixlist = document.getElementById("suffixlist").innerHTML.match(/\S+/g);
+	why        = document.getElementById("why"       ).innerHTML.match(/\S+/g);
+	shuffle(obscenity);
+	shuffle(wordpool);
+	shuffle(suffixlist);
+	shuffle(why);
+}
 
 function genword(first){
 	var word = [];
@@ -307,7 +324,9 @@ function genword(first){
 	return word.join("");
 }
 
-function genpassphrase(){
+function genpassword(){
+	initwordpool();
+
 	var passphrase = [];
 	passphrase.push(genword(obscenity));
 	passphrase.push(genword(wordpool));
@@ -315,17 +334,40 @@ function genpassphrase(){
 
 	passphrase[0] += suffixlist.pop();
 	shuffle(passphrase);
-	//passphrase[0] += why.pop();
-	//shuffle(passphrase);
 	passphrase.push(("0000"+Math.floor(Math.random()*(9999))).slice(-4));
+	shuffle(passphrase);
 	return passphrase.join(" ");
 }
 
-document.getElementById("jerkey").innerHTML  = genpassphrase() + "</br>";
-document.getElementById("jerkey").innerHTML += genpassphrase() + "</br>";
-document.getElementById("jerkey").innerHTML += genpassphrase() + "</br>";
-document.getElementById("jerkey").innerHTML += genpassphrase() + "</br>";
-document.getElementById("jerkey").innerHTML += genpassphrase() ;
+function genpassphrase(){
+	initwordpool();
+
+	var passphrase = [];
+	passphrase.push(genword(obscenity));
+	passphrase.push(genword(obscenity));
+	passphrase.push(genword(wordpool));
+	passphrase.push(genword(wordpool));
+	shuffle(passphrase);
+
+	passphrase[0] += suffixlist.pop();
+	shuffle(passphrase);
+	passphrase[0] += why.pop();
+	passphrase.push(("0000"+Math.floor(Math.random()*(9999))).slice(-4));
+	shuffle(passphrase);
+	return passphrase.join(" ");
+}
+
+document.getElementById("jerkeypw").innerHTML += genpassword() + "</br>";
+document.getElementById("jerkeypw").innerHTML += genpassword() + "</br>";
+document.getElementById("jerkeypw").innerHTML += genpassword() + "</br>";
+document.getElementById("jerkeypw").innerHTML += genpassword() + "</br>";
+document.getElementById("jerkeypw").innerHTML += genpassword() ;
+
+document.getElementById("jerkeypp").innerHTML += genpassphrase() + "</br>";
+document.getElementById("jerkeypp").innerHTML += genpassphrase() + "</br>";
+document.getElementById("jerkeypp").innerHTML += genpassphrase() + "</br>";
+document.getElementById("jerkeypp").innerHTML += genpassphrase() + "</br>";
+document.getElementById("jerkeypp").innerHTML += genpassphrase() ;
 </script>
 
 </body>
